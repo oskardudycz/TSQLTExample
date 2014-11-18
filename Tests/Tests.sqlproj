@@ -4,26 +4,25 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>UserManagementPortal</Name>
+    <Name>Tests</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{62c4fd02-3e57-4924-a131-0cfe603581fd}</ProjectGuid>
+    <ProjectGuid>{8919ade8-a879-4f82-a0de-3821d5fdd418}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>UserManagementPortal</RootNamespace>
-    <AssemblyName>UserManagementPortal</AssemblyName>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <SqlServerVerification>True</SqlServerVerification>
+    <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <GenerateCreateScript>False</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -58,22 +57,10 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Objects" />
+    <Folder Include="PostDeployment" />
+    <Folder Include="PostDeployment\tSQLt" />
     <Folder Include="Procedures" />
     <Folder Include="Procedures\User" />
-    <Folder Include="Objects\User" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="Procedures\User\AddUser.sql" />
-    <Build Include="Objects\User\Users.sql" />
-    <Build Include="Objects\User\Schema.sql" />
-    <Build Include="Procedures\User\SelectUsers.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="UserManagementPortal.publish.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="UserManagementPortal.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.sqlproj">
@@ -82,5 +69,41 @@
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
     </ProjectReference>
+    <ProjectReference Include="..\UserManagementPortal\UserManagementPortal.sqlproj">
+      <Name>UserManagementPortal</Name>
+      <Project>{62c4fd02-3e57-4924-a131-0cfe603581fd}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ProjectReference>
+    <ProjectReference Include="..\TSQLT\TSQLT.sqlproj">
+      <Name>TSQLT</Name>
+      <Project>{2915c6f4-da09-4c50-aee3-f507457ac699}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tests.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeployment\Script.PostDeployment1.sql" />
+    <None Include="PostDeployment\tSQLt\SetCLREnabled.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Procedures\User\Test- GIVEN not empty username WHEN AddUser is being called THEN user is added.sql" />
+    <Build Include="Procedures\User\Schema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="TSQLT">
+      <DefaultValue>TSQLT</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>sys</DatabaseVariableLiteralValue>
+    </ArtifactReference>
   </ItemGroup>
 </Project>

@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>UserManagementPortal</Name>
+    <Name>Common</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{62c4fd02-3e57-4924-a131-0cfe603581fd}</ProjectGuid>
+    <ProjectGuid>{1a8f07ff-0729-437b-980f-8afb2e5e4258}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>UserManagementPortal</RootNamespace>
-    <AssemblyName>UserManagementPortal</AssemblyName>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -23,7 +23,6 @@
     <SqlServerVerification>True</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <GenerateCreateScript>False</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -58,29 +57,17 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Objects" />
     <Folder Include="Procedures" />
-    <Folder Include="Procedures\User" />
-    <Folder Include="Objects\User" />
+    <Folder Include="Objects" />
+    <Folder Include="Objects\Logging" />
+    <Folder Include="Procedures\Logging" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Procedures\User\AddUser.sql" />
-    <Build Include="Objects\User\Users.sql" />
-    <Build Include="Objects\User\Schema.sql" />
-    <Build Include="Procedures\User\SelectUsers.sql" />
+    <Build Include="Objects\Logging\Logs.sql" />
+    <Build Include="Objects\Logging\Schema.sql" />
+    <Build Include="Procedures\Logging\Log.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="UserManagementPortal.publish.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="UserManagementPortal.refactorlog" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.sqlproj">
-      <Name>Common</Name>
-      <Project>{1a8f07ff-0729-437b-980f-8afb2e5e4258}</Project>
-      <Private>True</Private>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-    </ProjectReference>
+    <RefactorLog Include="Common.refactorlog" />
   </ItemGroup>
 </Project>
